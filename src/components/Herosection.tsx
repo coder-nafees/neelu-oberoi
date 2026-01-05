@@ -1,19 +1,47 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
+import hero1 from "../../public/hero_image.png";
+import hero2 from "../../public/hero_image.png";
+import hero3 from "../../public/hero_image.png";
+import hero4 from "../../public/hero_image.png";
+
+// Import your images from public folder
+// Make sure these images exist in your public folder
+const carouselImages = [hero1, hero2, hero3, hero4];
 
 export default function HeroSection() {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
 
+  // Auto-play carousel every 5 seconds
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsLoaded(true);
-  }, []);
+
+    if (!isAutoPlaying) return;
+
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % carouselImages.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [isAutoPlaying]);
+
+  // Handle dot click
+  const goToSlide = (index: number) => {
+    setCurrentSlide(index);
+    // Pause auto-play temporarily when user manually changes slide
+    setIsAutoPlaying(false);
+    setTimeout(() => setIsAutoPlaying(true), 10000); // Resume after 10 seconds
+  };
 
   return (
-    <section className="relative pt-16 sm:pt-20 pb-8 sm:pb-12 lg:pb-16">
+    <section className="relative mt-16 sm:pt-20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Main Hero Image */}
+        {/* Main Hero Carousel */}
         <div
           className={`relative rounded-lg overflow-hidden shadow-2xl transition-all duration-1000 ${
             isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
@@ -24,56 +52,63 @@ export default function HeroSection() {
             minHeight: "400px",
           }}
         >
-          {/* Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
-
-          {/* Hero Content - Image Placeholder */}
-          <div className="relative h-[400px] sm:h-[500px] lg:h-[600px] flex items-center justify-center">
-            <div className="text-center text-white">
-              {/* This would be your actual image */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-full h-full bg-gradient-to-br from-[#B8A88F] via-[#9D8B78] to-[#7A6A5A] opacity-60"></div>
+          {/* Carousel Images */}
+          <div className="relative h-[400px] sm:h-[500px] lg:h-[600px]">
+            {carouselImages.map((image, index) => (
+              <div
+                key={index}
+                className={`absolute inset-0 transition-opacity duration-1000 ${
+                  index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
+                }`}
+              >
+                <Image
+                  src={image}
+                  alt={`Slide ${index + 1}`}
+                  fill
+                  className="object-cover"
+                  priority={index === 0}
+                  quality={100}
+                />
               </div>
-
-              {/* Model silhouette effect */}
-              <div className="relative z-10">
-                <div className="w-48 h-64 sm:w-64 sm:h-80 lg:w-80 lg:h-96 mx-auto bg-gradient-to-b from-white/10 to-transparent rounded-full blur-3xl"></div>
-              </div>
-            </div>
+            ))}
           </div>
 
-          {/* Slide Indicators */}
+          {/* Slide Indicators (Dots) - Bottom Right */}
           <div className="absolute bottom-6 right-6 flex items-center space-x-2 z-20">
-            <button className="w-2 h-2 rounded-full bg-white/60 hover:bg-white transition-colors duration-300"></button>
-            <button className="w-2 h-2 rounded-full bg-white hover:bg-white transition-colors duration-300"></button>
-            <button className="w-2 h-2 rounded-full bg-white/60 hover:bg-white transition-colors duration-300"></button>
+            {carouselImages.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => goToSlide(index)}
+                className={`transition-all duration-300 rounded-full ${
+                  index === currentSlide
+                    ? "w-2.5 h-2.5 bg-white"
+                    : "w-2.5 h-2.5 bg-white/40 hover:bg-white/60"
+                }`}
+                aria-label={`Go to slide ${index + 1}`}
+              />
+            ))}
           </div>
         </div>
 
-        {/* CTA Button */}
-        <div
-          className={`mt-8 text-center transition-all duration-1000 delay-300 ${
-            isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-          }`}
-        >
-          <button className="group relative inline-flex items-center px-8 py-3 sm:px-10 sm:py-4 bg-transparent border-2 border-[#8B6F47] text-[#8B6F47] rounded-full overflow-hidden transition-all duration-500 hover:scale-105">
-            <span className="absolute inset-0 bg-[#8B6F47] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></span>
-            <span className="relative text-sm sm:text-base tracking-widest uppercase font-light group-hover:text-white transition-colors duration-500">
+        {/* Book Appointment Button */}
+        <div className="flex justify-center mt-12">
+          <button className="group relative px-8 py-4 bg-[#E4D9C5] hover:bg-[#B8985E] text-[#885730] rounded-full transition-all duration-300 hover:shadow-lg hover:scale-105">
+            <span className="flex items-center gap-3 font-medium tracking-wide">
               Book an Appointment
+              <svg
+                className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M17 8l4 4m0 0l-4 4m4-4H3"
+                />
+              </svg>
             </span>
-            <svg
-              className="relative ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform duration-300"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9 5l7 7-7 7"
-              />
-            </svg>
           </button>
         </div>
       </div>

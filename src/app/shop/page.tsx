@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import menImage from "../../../public/men.png"
 import womenImage from "../../../public/women.png"
+import BookingDialog from '@/components/BookingDialog';
 
 const ShopPage = () => {
   return (
@@ -45,19 +46,7 @@ const ShopPage = () => {
 
         {/* Book Appointment Button */}
         <div className="flex justify-center mt-12">
-          <button className="group relative px-8 py-4 bg-[#E4D9C5] hover:bg-[#B8985E] text-[#885730] rounded-full transition-all duration-300 hover:shadow-lg hover:scale-105">
-            <span className="flex items-center gap-3 font-medium tracking-wide">
-              Book an Appointment
-              <svg 
-                className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" 
-                fill="none" 
-                stroke="currentColor" 
-                viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </span>
-          </button>
+         <BookingDialog />
         </div>
       </div>
     </div>

@@ -107,7 +107,7 @@ const WomenPage = () => {
                 />
 
                 {/* Bottom Gradient Overlay with Info */}
-                <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/70 via-black/40 to-transparent">
+                <div className="absolute inset-x-0 bottom-1 h-1/4 bg-black/10 backdrop-blur-md scale-95 rounded-3xl">
                   <div className="absolute inset-x-0 bottom-0 px-6 pb-6">
                     {/* Product Name */}
                     <h3 className="text-white text-base font-medium tracking-wide mb-1 uppercase">

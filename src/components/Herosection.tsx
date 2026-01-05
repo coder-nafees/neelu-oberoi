@@ -6,6 +6,7 @@ import hero1 from "../../public/hero_image.png";
 import hero2 from "../../public/hero_image.png";
 import hero3 from "../../public/hero_image.png";
 import hero4 from "../../public/hero_image.png";
+import BookingDialog from "./BookingDialog";
 
 // Import your images from public folder
 // Make sure these images exist in your public folder
@@ -91,7 +92,7 @@ export default function HeroSection() {
         </div>
 
         {/* Book Appointment Button */}
-        <div className="flex justify-center mt-12">
+        {/* <div className="flex justify-center mt-12">
           <button className="group relative px-8 py-4 bg-[#E4D9C5] hover:bg-[#B8985E] text-[#885730] rounded-full transition-all duration-300 hover:shadow-lg hover:scale-105">
             <span className="flex items-center gap-3 font-medium tracking-wide">
               Book an Appointment
@@ -110,6 +111,10 @@ export default function HeroSection() {
               </svg>
             </span>
           </button>
+        </div> */}
+          {/* Book Appointment Button */}
+        <div className="flex justify-center mt-12">
+          <BookingDialog />
         </div>
       </div>
     </section>

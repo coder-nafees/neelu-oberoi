@@ -2,6 +2,7 @@ import React from "react";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import girlImage from "../../../public/brand_girl.png";
+import BookingDialog from "@/components/BookingDialog";
 
 export default function BrandComponent() {
   return (
@@ -34,24 +35,7 @@ export default function BrandComponent() {
 
           {/* CTA Button */}
           <div className="flex justify-start mt-2">
-            <button className="group relative px-8 py-4 bg-[#E4D9C5] hover:bg-[#B8985E] text-[#885730] rounded-full transition-all duration-300 hover:shadow-lg hover:scale-105">
-              <span className="flex items-center gap-3 font-medium tracking-wide">
-                BOOK AN APPOINTMENT
-                <svg
-                  className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M17 8l4 4m0 0l-4 4m4-4H3"
-                  />
-                </svg>
-              </span>
-            </button>
+            <BookingDialog />
           </div>
         </div>
       </div>
